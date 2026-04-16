@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+:root {
+  --bg: #f5f2ee;
+  --fg: #111111;
+  --fg-inv: #f5f2ee;
+  --fg-muted: #6b6560;
+  --accent: #8c7b6b;
+  --accent-warm: #c4a882;
+  --border: #d8d3cc;
+  --surface: #ede8e3;
+}
+
+/* ── Reset / Base ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-grotesk), "Space Grotesk", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme inline {
+  --font-sans: var(--font-grotesk);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+}
+
+/* ── Marquee ───────────────────────────────────────────────────── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-inner {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+/* ── Nav link underline ────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.28s ease;
+}
+
+.nav-link:hover::after {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+/* ── Solid buttons ─────────────────────────────────────────────── */
+.btn-solid {
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    outline 0.22s ease;
+}
+
+.btn-solid:hover {
+  background: transparent !important;
+  color: var(--fg) !important;
+  outline: 1.5px solid var(--fg);
+}
+
+.btn-solid-inv {
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    outline 0.22s ease;
+}
+
+.btn-solid-inv:hover {
+  background: transparent !important;
+  color: var(--fg-inv) !important;
+  outline: 1.5px solid var(--fg-inv);
+}
+
+/* ── Interactive helpers ───────────────────────────────────────── */
+.social-link {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.social-link:hover {
+  opacity: 1 !important;
+  transform: translateX(5px);
+}
+
+.contact-email {
+  transition: opacity 0.2s ease;
+}
+
+.contact-email:hover {
+  opacity: 0.45 !important;
+}
+
+.proj-card {
+  transition:
+    background 0.28s ease,
+    border-color 0.28s ease;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+
+  .nav-desktop {
+    display: none !important;
+  }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+/* ── Legacy flip-card (kept for safety) ───────────────────────── */
+.flip-card {
+  perspective: 600px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.flip-card:hover .flip-inner,
+.flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
