@@ -33,13 +33,14 @@ const stats = [
 
 const experience = [
   {
-    period: "Aug 2020 — Jul 2022",
-    institution: "Gardner College Diliman",
-    role: "ICT (Information & Communications Technology)",
-    location: "Quezon City",
+    period: "Jan 12 — Present",
+    institution: "Cloud Ready Corp",
+    role: "IT Intern",
+    location: "Remote",
+    status: "active" as const,
     highlights: [
-      "Foundation in web and digital technologies",
-      "Project-based learning in frontend and backend",
+      "Contributed to cloud infrastructure projects",
+      "Gained hands-on experience with enterprise systems",
     ],
   },
   {
@@ -47,19 +48,21 @@ const experience = [
     institution: "Ateneo de Naga University",
     role: "BSIT (Bachelor of Science in Information Technology)",
     location: "Camarines Sur",
+    status: "active" as const,
     highlights: [
       "Advanced software engineering and systems design",
       "Capstone projects in full-stack development",
     ],
   },
   {
-    period: "Jun 2025 — Dec 2025",
-    institution: "Cloud Ready Corp",
-    role: "IT Intern",
-    location: "Remote",
+    period: "Aug 2020 — Jul 2022",
+    institution: "Gardner College Diliman",
+    role: "ICT (Information & Communications Technology)",
+    location: "Quezon City",
+    status: "completed" as const,
     highlights: [
-      "Contributed to cloud infrastructure projects",
-      "Gained hands-on experience with enterprise systems",
+      "Foundation in web and digital technologies",
+      "Project-based learning in frontend and backend",
     ],
   },
 ];
@@ -367,11 +370,24 @@ function Hero() {
             fontWeight: 700,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "var(--accent)",
+            color: "var(--fg)",
             marginBottom: "2rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
           }}
         >
-          {"\u2736"} {person.role}
+          <span
+            style={{
+              display: "inline-block",
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: "var(--accent-warm)",
+              flexShrink: 0,
+            }}
+          />
+          {person.role}
         </p>
 
         <div
@@ -835,81 +851,131 @@ function About() {
                 flexDirection: "column",
               }}
             >
-              {experience.map((exp, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    gap: "1rem",
-                    paddingBottom: i === experience.length - 1 ? 0 : "1.5rem",
-                    borderBottom:
-                      i === experience.length - 1
-                        ? "none"
-                        : "1px solid rgba(245,242,238,0.1)",
-                    position: "relative",
-                  }}
-                >
-                  {/* Timeline dot */}
+              {experience.map((exp, i) => {
+                const isActive = exp.status === "active";
+                const isLast = i === experience.length - 1;
+                const isFirst = i === 0;
+
+                return (
                   <div
+                    key={i}
                     style={{
-                      position: "relative",
-                      width: "24px",
                       display: "flex",
-                      alignItems: "flex-start",
-                      justifyContent: "center",
-                      paddingTop: "0.2rem",
-                      flexShrink: 0,
+                      gap: "1.25rem",
+                      paddingBottom: isLast ? 0 : "2rem",
                     }}
                   >
+                    {/* Timeline indicator */}
                     <div
                       style={{
-                        width: 10,
-                        height: 10,
-                        borderRadius: "50%",
-                        background: "var(--accent-warm)",
-                        border: "2px solid var(--fg)",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        flexShrink: 0,
+                        paddingTop: "3px",
                       }}
-                    />
-                  </div>
+                    >
+                      <div
+                        style={{
+                          width: 10,
+                          height: 10,
+                          borderRadius: "50%",
+                          background: isActive ? "var(--accent-warm)" : "rgba(196,168,130,0.3)",
+                          flexShrink: 0,
+                        }}
+                      />
+                      {!isLast && (
+                        <div
+                          style={{
+                            width: "1px",
+                            flex: 1,
+                            background: "rgba(196,168,130,0.2)",
+                            marginTop: "6px",
+                          }}
+                        />
+                      )}
+                    </div>
 
-                  {/* Content */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <h4
-                      style={{
-                        fontFamily: FB,
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: "var(--fg-inv)",
-                        margin: "0 0 0.2rem 0",
-                        lineHeight: 1,
-                      }}
-                    >
-                      {exp.institution}
-                    </h4>
-                    <p
-                      style={{
-                        fontFamily: FB,
-                        fontSize: 10,
-                        color: "var(--accent-warm)",
-                        margin: "0 0 0.15rem 0",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {exp.role}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: FB,
-                        fontSize: 9,
-                        color: "rgba(245,242,238,0.4)",
-                        margin: 0,
-                      }}
-                    >
-                      {exp.period}
-                    </p>
+                    {/* Content */}
+                    <div style={{ flex: 1 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: "0.25rem",
+                          gap: "0.75rem",
+                        }}
+                      >
+                        <h4
+                          style={{
+                            fontFamily: FB,
+                            fontSize: isFirst ? 15 : 13,
+                            fontWeight: 700,
+                            color: isActive ? "var(--fg-inv)" : "rgba(245,242,238,0.5)",
+                            margin: 0,
+                          }}
+                        >
+                          {exp.institution}
+                        </h4>
+                        {isActive ? (
+                          <span
+                            style={{
+                              fontFamily: FB,
+                              fontSize: 8,
+                              fontWeight: 700,
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              color: "var(--accent-warm)",
+                              border: "1px solid rgba(196,168,130,0.5)",
+                              padding: "0.15rem 0.45rem",
+                              borderRadius: "2px",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            Now
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              fontFamily: FB,
+                              fontSize: 8,
+                              fontWeight: 600,
+                              letterSpacing: "0.1em",
+                              textTransform: "uppercase",
+                              color: "rgba(245,242,238,0.2)",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            Done
+                          </span>
+                        )}
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: FB,
+                          fontSize: 10,
+                          color: isActive ? "var(--accent-warm)" : "rgba(196,168,130,0.4)",
+                          margin: "0 0 0.2rem 0",
+                          fontWeight: 600,
+                        }}
+                      >
+                        {exp.role}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: FB,
+                          fontSize: 9,
+                          color: "rgba(245,242,238,0.25)",
+                          margin: 0,
+                        }}
+                      >
+                        {exp.period} • {exp.location}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
