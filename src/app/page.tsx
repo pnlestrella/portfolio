@@ -517,7 +517,7 @@ function Hero() {
 /* ── Marquee ─────────────────────────────────────────────────────────────── */
 
 const TICKER =
-  "FULL STACK DEVELOPER \u00b7 OPEN SOURCE \u00b7 AVAILABLE FOR HIRE \u00b7 REACT \u00b7 NODE.JS \u00b7 TYPESCRIPT \u00b7 NEXT.JS \u00b7 CLEAN CODE \u00b7 ";
+  "NODE.JS \u00b7 REACT.JS \u00b7 REACT NATIVE \u00b7 TYPESCRIPT \u00b7 NEXT.JS \u00b7 PYTHON \u00b7 FASTAPI \u00b7 MONGODB \u00b7 FIREBASE \u00b7 JWT \u00b7 PASSPORT.JS \u00b7 REST APIS \u00b7 LLM INTEGRATION \u00b7 NLP \u00b7 VITE \u00b7 GOOGLE OAUTH \u00b7 RAILWAY \u00b7 ";
 
 function Marquee() {
   return (
