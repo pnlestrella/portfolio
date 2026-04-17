@@ -294,40 +294,64 @@ function Hero() {
           CLOUD READY
         </div>
       </div>
-      <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", position: "relative", zIndex: 10 }}>
-        <p
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          width: "100%",
+          position: "relative",
+          zIndex: 10,
+        }}
+      >
+        <div
           style={{
-            fontFamily: FB,
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "var(--fg)",
-            marginBottom: "2rem",
             display: "flex",
             alignItems: "center",
-            gap: "0.6rem",
+            gap: "0.5rem",
+            marginBottom: "-5rem",
+            flexWrap: "wrap",
           }}
         >
-          <span
-            style={{
-              display: "inline-block",
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: "var(--accent-warm)",
-              flexShrink: 0,
-            }}
-          />
-          {person.role}
-        </p>
+          <div style={{ width: "100%" }}>
+            <p
+              style={{
+                fontFamily: FB,
+                fontSize: 16,
+                fontWeight: 800,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                marginBottom: "0.5rem",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.8rem",
+                background: "#C4A882",
+                color: "#FFFFFF",
+                padding: "0.85rem 1.8rem",
+                borderRadius: "8px",
+                boxShadow: "0 4px 16px rgba(196, 168, 130, 0.3)",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-block",
+                  width: 14,
+                  height: 14,
+                  borderRadius: "50%",
+                  background: "#FFFFFF",
+                  flexShrink: 0,
+                }}
+              />
+              {person.role}
+            </p>
+          </div>
+        </div>
 
         <div
           style={{
             display: "flex",
             alignItems: "center",
             gap: "0.5rem",
-            marginBottom: "4rem",
+            marginBottom: "3rem",
             flexWrap: "wrap",
           }}
         >
@@ -355,8 +379,8 @@ function Hero() {
           <div
             ref={placeholderRef}
             style={{
-              width:      "clamp(250px, 45vw, 500px)",
-              height:     "clamp(250px, 45vw, 500px)",
+              width: "clamp(250px, 45vw, 500px)",
+              height: "clamp(250px, 45vw, 500px)",
               flexShrink: 0,
             }}
           >
@@ -369,6 +393,62 @@ function Hero() {
               <source src="/chibi-animation.webm" type="video/webm" />
             </video>
           </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            flexWrap: "wrap",
+            gap: "2.5rem",
+            marginTop: "2rem",
+          }}
+        >
+          <div style={{ maxWidth: 480 }}>
+            <p
+              style={{
+                fontFamily: FAC,
+                fontSize: 22,
+                color: "var(--accent)",
+                marginBottom: "0.75rem",
+                lineHeight: 1.4,
+              }}
+            >
+              &ldquo;{person.tagline}&rdquo;
+            </p>
+            <p
+              style={{
+                fontFamily: FB,
+                fontSize: 13,
+                lineHeight: 1.8,
+                color: "var(--fg-muted)",
+              }}
+            >
+              Based in {person.location}. Crafting high-performance web
+              applications from architecture to final pixel.
+            </p>
+          </div>
+
+          <a
+            href="#work"
+            className="btn-solid"
+            style={{
+              fontFamily: FB,
+              fontSize: 12,
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--fg-inv)",
+              background: "var(--fg)",
+              padding: "1rem 2.5rem",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              display: "inline-block",
+            }}
+          >
+            View Work {"\u2197"}
+          </a>
         </div>
       </div>
 
@@ -755,7 +835,9 @@ function About() {
                           width: 10,
                           height: 10,
                           borderRadius: "50%",
-                          background: isActive ? "var(--accent-warm)" : "rgba(196,168,130,0.3)",
+                          background: isActive
+                            ? "var(--accent-warm)"
+                            : "rgba(196,168,130,0.3)",
                           flexShrink: 0,
                         }}
                       />
@@ -787,7 +869,9 @@ function About() {
                             fontFamily: FB,
                             fontSize: isFirst ? 15 : 13,
                             fontWeight: 700,
-                            color: isActive ? "var(--fg-inv)" : "rgba(245,242,238,0.5)",
+                            color: isActive
+                              ? "var(--fg-inv)"
+                              : "rgba(245,242,238,0.5)",
                             margin: 0,
                           }}
                         >
@@ -830,7 +914,9 @@ function About() {
                         style={{
                           fontFamily: FB,
                           fontSize: 10,
-                          color: isActive ? "var(--accent-warm)" : "rgba(196,168,130,0.4)",
+                          color: isActive
+                            ? "var(--accent-warm)"
+                            : "rgba(196,168,130,0.4)",
                           margin: "0 0 0.2rem 0",
                           fontWeight: 600,
                         }}
