@@ -213,39 +213,7 @@ function Navbar() {
 /* ── Hero ────────────────────────────────────────────────────────────────── */
 
 function Hero() {
-  const [phase, setPhase]               = useState<"intro" | "exit" | "done">("intro");
-  const [videoTransform, setVideoTransform] = useState("none");
   const placeholderRef = useRef<HTMLDivElement>(null);
-  const triggered      = useRef(false);
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    const t = setTimeout(triggerExit, 6000);
-    return () => clearTimeout(t);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  function triggerExit() {
-    if (triggered.current) return;
-    triggered.current = true;
-
-    const rect = placeholderRef.current?.getBoundingClientRect();
-    if (rect) {
-      const vw        = window.innerWidth;
-      const vh        = window.innerHeight;
-      const videoSize = Math.min(vw * 0.72, vh * 0.72);
-      const scale     = rect.width / videoSize;
-      const tx        = rect.left + rect.width  / 2 - vw / 2;
-      const ty        = rect.top  + rect.height / 2 - vh / 2;
-      setVideoTransform(`translate(${tx}px, ${ty}px) scale(${scale})`);
-    }
-    setPhase("exit");
-  }
-
-  function handleTransitionEnd(e: React.TransitionEvent) {
-    if (e.propertyName !== "transform") return;
-    setPhase("done");
-    document.body.style.overflow = "";
-  }
 
   return (
     <section
@@ -253,7 +221,7 @@ function Hero() {
       style={{
         minHeight: "100svh",
         padding: "6rem 2rem 4rem",
-        background: "var(--bg)",
+        background: "#F5F2EE",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -261,42 +229,6 @@ function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* ── Fullscreen intro overlay ── */}
-      {phase !== "done" && (
-        <div
-          style={{
-            position:       "fixed",
-            inset:          0,
-            zIndex:         2000,
-            background:     "var(--bg)",
-            display:        "flex",
-            alignItems:     "center",
-            justifyContent: "center",
-            pointerEvents:  phase === "exit" ? "none" : "auto",
-          }}
-        >
-          <video
-            autoPlay
-            muted
-            playsInline
-            onEnded={triggerExit}
-            onTransitionEnd={handleTransitionEnd}
-            style={{
-              width:          "min(72vw, 72vh)",
-              height:         "min(72vw, 72vh)",
-              objectFit:      "contain",
-              transformOrigin:"center center",
-              willChange:     "transform",
-              transition:     phase === "exit"
-                ? "transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-                : "none",
-              transform:      videoTransform,
-            }}
-          >
-            <source src="/Chibi_Character_Animation_with_Laptop.webm" type="video/webm" />
-          </video>
-        </div>
-      )}
       {/* Background text elements */}
       <div
         aria-hidden
@@ -394,7 +326,7 @@ function Hero() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "2rem",
+            gap: "0.5rem",
             marginBottom: "4rem",
             flexWrap: "wrap",
           }}
@@ -423,77 +355,20 @@ function Hero() {
           <div
             ref={placeholderRef}
             style={{
-              width:      "clamp(150px, 30vw, 380px)",
-              height:     "clamp(150px, 30vw, 380px)",
+              width:      "clamp(250px, 45vw, 500px)",
+              height:     "clamp(250px, 45vw, 500px)",
               flexShrink: 0,
             }}
           >
-            {phase === "done" && (
-              <video
-                autoPlay
-                muted
-                playsInline
-                style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              >
-                <source src="/Chibi_Character_Animation_with_Laptop.webm" type="video/webm" />
-              </video>
-            )}
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            flexWrap: "wrap",
-            gap: "2.5rem",
-          }}
-        >
-          <div style={{ maxWidth: 480 }}>
-            <p
-              style={{
-                fontFamily: FAC,
-                fontSize: 22,
-                color: "var(--accent)",
-                marginBottom: "0.75rem",
-                lineHeight: 1.4,
-              }}
+            <video
+              autoPlay
+              muted
+              playsInline
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             >
-              &ldquo;{person.tagline}&rdquo;
-            </p>
-            <p
-              style={{
-                fontFamily: FB,
-                fontSize: 13,
-                lineHeight: 1.8,
-                color: "var(--fg-muted)",
-              }}
-            >
-              Based in {person.location}. Crafting high-performance web
-              applications from architecture to final pixel.
-            </p>
+              <source src="/chibi-animation.webm" type="video/webm" />
+            </video>
           </div>
-
-          <a
-            href="#work"
-            className="btn-solid"
-            style={{
-              fontFamily: FB,
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--fg-inv)",
-              background: "var(--fg)",
-              padding: "1rem 2.5rem",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-              display: "inline-block",
-            }}
-          >
-            View Work {"\u2197"}
-          </a>
         </div>
       </div>
 
